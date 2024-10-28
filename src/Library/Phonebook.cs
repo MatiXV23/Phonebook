@@ -5,14 +5,15 @@ namespace Library;
 public class Phonebook
 {
     private List<Contact> persons;
-
+    public Contact Owner { get; }
+    
     public Phonebook(Contact owner)
     {
-        this.Owner = owner;
-        this.persons = new List<Contact>();
+        Owner = owner;
+        persons = new List<Contact>();
     }
 
-    public Contact Owner { get; }
+   
 
     public List<Contact> Search(string[] names)
     {
@@ -30,5 +31,35 @@ public class Phonebook
         }
 
         return result;
+    }
+
+
+    public void AddContact(Contact contact) 
+    {
+        if (!persons.Contains(contact))
+        {
+            persons.Add(contact);
+        }
+    }
+    public void RemoveContact(Contact contact) 
+    {
+        if (persons.Contains(contact))
+        {
+            persons.Remove(contact);
+        }  
+    }
+    
+    public void SendMessage(Message message, string[] names, EnumSendType sendType)
+    {
+        WhatsAppChannel whatsApp = new WhatsAppChannel();
+
+        List<Contact> recievers = Search(names);
+
+        foreach (Contact reciever in recievers)
+        {
+            Message msg = new Message(Owner.Name, reciever.Name);
+            msg.Text = message.Text;
+            whatsApp.Send(msg, reciever);
+        }
     }
 }

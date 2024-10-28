@@ -4,8 +4,10 @@ namespace Library;
 
 public class WhatsAppChannel : IMessageChannel
 {
-    public void Send(Message message)
+    WhatsAppApi whatsApp = new WhatsAppApi();
+    
+    public void Send(Message message, Contact reciever)
     {
-
+        whatsApp.Send(reciever.Phone, message.Text);
     }
 }
