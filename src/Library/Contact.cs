@@ -7,7 +7,7 @@ public class Contact
         this.Name = name;
     }
 
-    public Contact(string name, string phone)
+    public Contact(string name, string phone)   // Cree 2 constructores mas solo por comodidad
     {
         this.Name = name;
         this.Phone = phone;
